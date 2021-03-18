@@ -43,8 +43,19 @@ class ArticleController
             $this->view->renderHtml('errors/404.php', [], 404);
             return;
         }
+        echo 'Функционал готов, форма на подходе';
+        $article->setTitle($article->getTitle() . ' new ver');
+        $article->save();
+    }
 
-        $article->setTitle('New Title');
-        var_dump($article);
+    public function create()
+    {
+        echo 'Функционал готов, форма на подходе';
+        $article = new Article();
+        $article->setTitle('Новый заголовок2');
+        $article->setText('Новый текст123123');
+        $article->setAutorId(2);
+
+        $article->save();
     }
 }

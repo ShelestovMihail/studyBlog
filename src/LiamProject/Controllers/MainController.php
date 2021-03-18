@@ -30,4 +30,5 @@ class MainController
 	{
 		echo 'Goodbye, ' . $name;
 	}
+
 }

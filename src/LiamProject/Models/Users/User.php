@@ -5,7 +5,6 @@ use \LiamProject\Models\ActiveRecordEntity;
 
 class User extends ActiveRecordEntity
 {
-	private static $count = 0;
 	protected $nickname;
 	protected $email;
 	public $isConfirmed;
@@ -13,11 +12,6 @@ class User extends ActiveRecordEntity
 	protected $passwordHash;
 	protected $authToken;
 	protected $createdAt;
-	
-	public function __construct()
-	{
-		self::$count++;
-	}
 
 	public function getNickname(): string
 	{
