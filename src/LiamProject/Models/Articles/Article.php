@@ -21,9 +21,9 @@ class Article extends ActiveRecordEntity
 		return User::getById($this->autorId);
 	}
 
-	public function setAutorId($autorId)
+	public function setAutor(User $autor)
 	{
-		$this->autorId = $autorId;
+		$this->autorId = $autor->getId();
 	}
 
 	public function getText(): string

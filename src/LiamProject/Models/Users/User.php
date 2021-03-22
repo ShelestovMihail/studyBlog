@@ -7,7 +7,7 @@ class User extends ActiveRecordEntity
 {
 	protected $nickname;
 	protected $email;
-	public $isConfirmed;
+	protected $isConfirmed;
 	protected $role;
 	protected $passwordHash;
 	protected $authToken;

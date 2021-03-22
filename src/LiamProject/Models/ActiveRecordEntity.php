@@ -58,14 +58,12 @@ abstract class ActiveRecordEntity
         $colums = [];
         $params2values = [];
         $params = [];
-        $paramNumber = 1;
 
         foreach ($mappedPropertiesWithoutNull as $column => $value) {
             $colums[] = $column;
-            $param = ':param' . $paramNumber;
-            $params[] = $param;
-            $params2values[$param] = $value;
-            $paramNumber++;
+            $paramName = ':' . $column;
+            $params[] = $paramName;
+            $params2values[$paramName] = $value;
         }
 
         $sql = 'INSERT INTO ' . static::getTableName() . ' (' .  
@@ -74,6 +72,8 @@ abstract class ActiveRecordEntity
 
         $db = Db::getInstance();
         $db->query($sql, $params2values, static::class);
+
+        $this->refresh();
     }
 
     public static function getAll(): array
@@ -105,6 +105,19 @@ abstract class ActiveRecordEntity
         }
 
         return $mappedProperties;
+    }
+
+    //Заполняет пустые свойства объекта значениями из бд.
+    public function refresh():void
+    {
+        $db = Db::getInstance();
+        $filledArticle = static::getById($db->getLastInsertedId());
+
+        foreach ($filledArticle as $propertyName => $value) {            
+            if ($this->$propertyName === null) {
+                $this->$propertyName = $value;
+            }
+        }
     }
 
     public static function getById($id): ?self

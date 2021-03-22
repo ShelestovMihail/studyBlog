@@ -18,10 +18,6 @@ class ArticleController
     {
         $article = Article::getById($articleId);
 
-        /*$articleReflector = new \ReflectionObject($article);
-
-        var_dump($articleReflector->getMethods());*/
-
         if (!$article) {
         	$this->view->renderHtml('errors/404.php', [], 404);
             return;
@@ -48,13 +44,14 @@ class ArticleController
         $article->save();
     }
 
-    public function create()
+    public function create(): void
     {
-        echo 'Функционал готов, форма на подходе';
+        $autor = User::getById(2);
+
         $article = new Article();
-        $article->setTitle('Новый заголовок2');
+        $article->setTitle('newasasd title');
         $article->setText('Новый текст123123');
-        $article->setAutorId(2);
+        $article->setAutor($autor);
 
         $article->save();
     }
