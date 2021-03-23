@@ -1,6 +1,7 @@
 <?php
 namespace LiamProject\Controllers;
 
+use \LiamProject\Exceptions\NotFoundException;
 use \LiamProject\View\View;
 use \LiamProject\Models\Articles\Article;
 use \LiamProject\Models\Users\User;
@@ -19,8 +20,7 @@ class ArticleController
         $article = Article::getById($articleId);
 
         if (!$article) {
-        	$this->view->renderHtml('errors/404.php', [], 404);
-            return;
+        	throw new NotFoundException();           
         }
 
         $autor = $article->getAutor();
@@ -54,5 +54,18 @@ class ArticleController
         $article->setAutor($autor);
 
         $article->save();
+    }
+
+    public function delete(int $articleId)
+    {
+        $article = Article::getById($articleId);
+
+        if($article === null) {
+            echo 'Такой статьи не существует';
+            return;
+        }
+
+        $article->delete();
+        var_dump($article);
     }
 }

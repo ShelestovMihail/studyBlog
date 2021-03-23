@@ -20,15 +20,4 @@ class MainController
 
 		$this->view->renderHtml('main/main.php', ['articles' => $articles]);
 	}
-
-	public function sayHi($name)
-	{
-		$this->view->renderHtml('main/hello.php', ['name' => $name, 'title' => 'Страница приветствия']);
-	}
-
-	public function sayBye($name)
-	{
-		echo 'Goodbye, ' . $name;
-	}
-
 }

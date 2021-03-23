@@ -129,6 +129,19 @@ abstract class ActiveRecordEntity
         }
     }
 
+    public static function findOneByColumn(string $columnName, $value): ?self
+    {
+        $db = Db::getInstance();
+        $sql = 'SELECT * FROM ' . static::getTableName() . 
+        ' WHERE ' . $columnName . ' = :value LIMIT 1;';
+        $result = $db->query($sql, [':value' => $value], static::class);
+
+        if ($result === []) {
+            return null;
+        }
+        return $result[0];
+    }
+
     public static function getById($id): ?self
     {
     	$db = Db::getInstance();

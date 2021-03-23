@@ -3,6 +3,8 @@ namespace LiamProject\View;
 
 class View
 {
+	protected $templatesPath;
+
 	public function __construct(string $templatesPath)
 	{
 		$this->templatesPath = $templatesPath;
@@ -19,13 +21,6 @@ class View
 
 		$buffer = ob_get_contents();
   	 	ob_end_clean();
-
-  	 	//	$error = 1;
-
-  	 	if(empty($error)) {
-  	 		echo $buffer;
-  	 	} else {
-  	 		echo "Error!!!!";
-  	 	}
+  	 	echo $buffer;
 	}
 }

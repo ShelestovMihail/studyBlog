@@ -31,3 +31,20 @@
 a, a:visited {
     color: darkgreen;
 }
+
+div.signUpForm {
+    width: 300px;
+    margin: 0 auto;
+    padding: 40px;
+    border: 2px solid orange;
+    border-radius: 15px;
+    text-align: center;
+}
+.signUpForm input {
+    margin: 10px;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 14px;
+}

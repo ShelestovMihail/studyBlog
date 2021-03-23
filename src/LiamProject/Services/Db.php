@@ -11,12 +11,19 @@ class Db
 	{
 		$dbSettings = (require __DIR__ .  '/../../settings.php')['db'];
 
-		$this->pdo = new \PDO(
-			'mysql:host=' . $dbSettings['host'] . ';dbname=' . $dbSettings['db_name'],
-			$dbSettings['user'],
-			$dbSettings['password']
-		);
-
+		try {
+			$this->pdo = new \PDO(
+				'mysql:host=' . $dbSettings['host'] . ';dbname=' . $dbSettings['db_name'],
+				$dbSettings['user'],
+				$dbSettings['password']
+			);
+		} catch (\PDOException $e) {
+			throw new \LiamProject\Exceptions\DbException(
+				"Ошибка подключения к базе данных: " . 
+				$e->getMessage()
+			);
+			
+		}
 		$this->pdo->exec('SET NAMES UTF8');
 	}
 
