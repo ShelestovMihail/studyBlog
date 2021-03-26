@@ -2,6 +2,7 @@
 require __DIR__ . '/autoload.php';
 
 use \LiamProject\View\View;
+use \LiamProject\Models\Users\UsersAuthService;
 
 try {
 	$route = $_GET['route'] ?? '';
@@ -17,7 +18,9 @@ try {
 	}
 
 	if (!$isRouteFound) {
-	    $view = new View(__DIR__ . '/../templates/');
+	    $user = UsersAuthService::getUserByToken();
+		$view = new View(__DIR__ . '/../templates/');
+		$view->setVar('user', $user);
 	    throw new \LiamProject\Exceptions\NotFoundException();
 	}
 
@@ -29,9 +32,11 @@ try {
 	$controller = new $controllerName();
 	$controller->$actionName(...$matches);
 } catch (\LiamProject\Exceptions\DbException $e) {
-	$view = new View('../templates/');
 	$view->renderhtml('errors/500.php', ['error' => $e->getMessage()], 500);
 } catch (\LiamProject\Exceptions\NotFoundException $e) {
-	$view = new View('../templates/');
 	$view->renderHtml('errors/404.php', ['error' => $e->getMessage()], 404);
+} catch (\LiamProject\Exceptions\UserNotFoundException $e) {
+	$view->renderHtml('errors/500.php', ['error' => $e->getMessage()], 404);
+} catch (\LiamProject\Exceptions\InvalidCodeException $e) {
+	$view->renderHtml('errors/500.php', ['error' => $e->getMessage()], 404);
 }

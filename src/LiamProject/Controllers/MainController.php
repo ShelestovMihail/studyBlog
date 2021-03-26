@@ -3,6 +3,7 @@ namespace LiamProject\Controllers;
 
 use \LiamProject\View\View;
 use \LiamProject\Models\Articles\Article;
+use \LiamProject\Models\Users\UsersAuthService;
 
 class MainController
 {
@@ -10,7 +11,9 @@ class MainController
 
 	public function __construct()
 	{
-		$this->view = new View(__DIR__ . '/../../../templates/');
+		$this->user = UsersAuthService::getUserByToken();
+        $this->view = new View(__DIR__ . '/../../../templates');
+        $this->view->setVar('user', $this->user);
 	}
 
 	public function main()

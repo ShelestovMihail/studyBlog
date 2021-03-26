@@ -1,5 +1,4 @@
 <?php
-    $title = $title ?? 'Мой блог';
     include __DIR__ . '/../header.php';
     foreach ($articles as $article): 
 ?>
@@ -9,4 +8,4 @@
 <?php 
     endforeach;
     include __DIR__ . '/../footer.php';
-?>
+?>	

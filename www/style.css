@@ -32,7 +32,7 @@ a, a:visited {
     color: darkgreen;
 }
 
-div.signUpForm {
+div form {
     width: 300px;
     margin: 0 auto;
     padding: 40px;
@@ -40,7 +40,7 @@ div.signUpForm {
     border-radius: 15px;
     text-align: center;
 }
-.signUpForm input {
+form input {
     margin: 10px;
 }
 

@@ -5,6 +5,7 @@ use \LiamProject\Exceptions\NotFoundException;
 use \LiamProject\View\View;
 use \LiamProject\Models\Articles\Article;
 use \LiamProject\Models\Users\User;
+use \LiamProject\Models\Users\UsersAuthService;
 
 class ArticleController
 {
@@ -12,7 +13,9 @@ class ArticleController
 
 	public function __construct()
 	{
-		$this->view = new View(__DIR__ . '/../../../templates/');
+		$this->user = UsersAuthService::getUserByToken();
+        $this->view = new View(__DIR__ . '/../../../templates');
+        $this->view->setVar('user', $this->user);
 	}
 
 	public function view(int $articleId)
